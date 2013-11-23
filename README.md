@@ -21,7 +21,7 @@ note: sqlite library is obviously needed
     db.close();                      // database is automatically closed when destructor is called
 
     
-**EXECute query** - ignore returned data
+**EXECute query** - ignore returned data (insert/delete)
 
     string status = db.exec("delete row from table where id='1'");
     if(status) 
