@@ -23,7 +23,7 @@ note: sqlite library is obviously needed
 
 **EXECute query** - ignore returned data (insert/delete/create table)
 
-    string status = db.exec("delete row from table where id='1'");
+    bool status = db.exec("delete row from table where id='1'");
     if(status)
       cout << "Deleted" << endl;
     else
