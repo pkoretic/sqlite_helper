@@ -1,7 +1,7 @@
 /*======================================================================
-* SQLITE HELPER 
+* SQLITE HELPER
 * Petar Koretic
-* READ sqlite_helper.hpp for info 
+* READ sqlite_helper.hpp for info
 * =====================================================================*/
 
 #include <string>
@@ -10,14 +10,14 @@
 #include "sqlite_helper.hpp"
 
 
-database::database(const char* filename) 
+database::database(const char* filename)
 {
-  sqlite3_open_v2(filename, &db, SQLITE_OPEN_SHAREDCACHE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_READONLY, NULL); 
+  sqlite3_open_v2(filename, &db, SQLITE_OPEN_SHAREDCACHE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_READONLY, NULL);
 }
-database::database(const char* filename, bool writeMode) 
-{ 
+database::database(const char* filename, bool writeMode)
+{
   // open with multiple thread support and for maximum performance
-  sqlite3_open_v2(filename, &db, SQLITE_OPEN_SHAREDCACHE | SQLITE_OPEN_FULLMUTEX | (writeMode ? SQLITE_OPEN_READWRITE : SQLITE_OPEN_READONLY), NULL ); 
+  sqlite3_open_v2(filename, &db, SQLITE_OPEN_SHAREDCACHE | SQLITE_OPEN_FULLMUTEX | (writeMode ? SQLITE_OPEN_READWRITE : SQLITE_OPEN_READONLY), NULL );
   char *errMsg=0;
   sqlite3_exec(db, "PRAGMA synchronous = OFF", 0, 0, &errMsg);
   //sqlite3_exec(db, "PRAGMA journal_mode = WAL", 0, 0, &errMsg); // use this if you want a safer method
@@ -48,14 +48,14 @@ std::string database::querySingle(const std::string &query)
     }
     sqlite3_finalize(statement);
   }
-  
+
   std::string error_ = sqlite3_errmsg(db);
 
-  if(error_ != "not an error") 
+  if(error_ != "not an error")
     error=error_;
-  else 
+  else
     error.clear();
-  
+
   return result;
 }
 
@@ -75,20 +75,20 @@ std::vector<std::string> database::querySingle(const std::string &query, bool ro
         char *ptr = (char*)sqlite3_column_text(statement, col);
 
         if(ptr) val = ptr;
-        
+
         result.push_back(val);
     }
-    
+
     sqlite3_finalize(statement);
   }
-  
+
   std::string error_ = sqlite3_errmsg(db);
 
-  if(error_ != "not an error") 
+  if(error_ != "not an error")
     error=error_;
-  else 
+  else
     error.clear();
-  
+
   return result;
 }
 
@@ -113,21 +113,21 @@ std::vector<std::vector<std::string>> database::query(const std::string &query)
         char *ptr = (char*)sqlite3_column_text(statement, col);
 
         if(ptr) val = ptr;
-        
+
         values.push_back(val);
       }
       results.push_back(values);
     }
-     
+
     sqlite3_finalize(statement);
   }
-  
+
   std::string error_ = sqlite3_errmsg(db);
 
-  if(error_ != "not an error") 
+  if(error_ != "not an error")
     error=error_;
-  else 
+  else
     error.clear();
-  
-  return results;  
+
+  return results;
 }

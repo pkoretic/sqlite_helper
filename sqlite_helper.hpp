@@ -1,5 +1,5 @@
 /*======================================================================
-* SQLITE HELPER 
+* SQLITE HELPER
 * Helper functions desgined for easy management of sqlite databases
 * Databe is open by constructor and closed automatically by destructor
 * Primary things here are multithreading support and speed
@@ -36,10 +36,10 @@ public:
    returns: bool   - true if it went ok, false if error happened [read database.error]
    example
             bool status = db->exec("delete from table");
-            if(status) 
+            if(status)
               cout << "OK" << endl;
-            else 
-              cout << "NOT OK:" << db.error << endl; 
+            else
+              cout << "NOT OK:" << db.error << endl;
    ======================================================================================*/
   bool exec(const std::string &query);
 
@@ -75,7 +75,7 @@ public:
   std::vector<std::vector<std::string>> query(const std::string &query);
 
   // close database manually if desired
-  void close() { sqlite3_close(db); } 
+  void close() { sqlite3_close(db); }
 
 private:
   sqlite3 *db;
