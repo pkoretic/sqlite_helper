@@ -32,16 +32,16 @@ note: sqlite library is obviously needed
 **Query single** - return single row or entry from database
 
     // return single entry
-    cout << db.query("select user from table where id='1') << endl;
+    cout << db.querySingle("select user from table where id='1') << endl;
 
     // return complete row
-     vector<string> row = db.query("select name, surname from table where id='1', true/false);
+     vector<string> row = db.querySingle("select name, surname from table where id='1', true/false);
 
      cout << row.at(0) << row.at(1) << endl;
 
 **Query** - execute normal query
 
-    vector<vector<string>> data = db->querySingle("select name, surname from table");
+    vector<vector<string>> data = db->query("select name, surname from table");
     cout << data.at(0).at(0) << data.at(0).at(1) << endl;  // name1 surname1
     cout << data.at(1).at(0) << data.at(1).at(1) << endl;  // name2 surname2
 
